@@ -1,0 +1,9 @@
+env2/
+.DS_Store
+media/
+static/
+*.zip
+*.png
+*.tar.gz
+migrations
+*.pyc
