@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 import markdown
 # Create your views here.
 
-
+from comments.forms import CommentForm
 from blog.models import Post, Category
 
 
@@ -19,7 +19,11 @@ def detail(request, pk):
                                       'markdown.extensions.codehilite',
                                       'markdown.extensions.toc',
                                   ])
-    return render(request, 'blog/detail.html', context={'post': post})
+    form = CommentForm()
+    comment_list = post.comment_set.all()
+    return render(request, 'blog/detail.html', context={'post': post,
+                                                        'form': form,
+                                                        'comment_list': comment_list})
 
 def archives(request, year, month):
     post_list = Post.objects.filter(created_time__year=int(year), created_time__month=int(month)).order_by('-created_time')
